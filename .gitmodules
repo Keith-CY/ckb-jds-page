@@ -1,0 +1,3 @@
+[submodule "public/jds"]
+	path = public/jds
+	url = https://github.com/Keith-CY/ckb-jds.git
