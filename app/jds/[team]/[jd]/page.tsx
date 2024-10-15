@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { remark } from 'remark'
 import html from 'remark-html'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,12 +13,17 @@ interface Params {
 
 export const generateStaticParams = getJdPaths
 
-export const generateMetadata = async ({ params }: { params: Params }) => {
+export const generateMetadata = async ({ params }: { params: Params }): Promise<Metadata> => {
   const title = decodeURIComponent(params.jd)
   const post = jds.find((jd) => jd.team === params.team && jd.data.title === title)
+  const pageTitle = `${title} | ${params.team} | Opportunities in CKB`
   return {
-    title: `${title} | ${params.team} | Opportunities in CKB`,
+    title: pageTitle,
     description: post?.data.description,
+    openGraph: {
+      title: pageTitle,
+      description: post?.data.description,
+    },
   }
 }
 
